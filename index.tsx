@@ -151,7 +151,7 @@ const WorkflowVisualization = ({ workflow }) => {
     );
 };
 
-const SecureSdlcPipelines = () => {
+const CybersecurityWorkflows = () => {
     const [activeWorkflow, setActiveWorkflow] = useState('DevSecOps');
     const workflowNames = Object.keys(workflowsData);
     const tabRefs = useRef([]);
@@ -180,9 +180,9 @@ const SecureSdlcPipelines = () => {
     };
 
     return (
-        <section id="sdlc-pipelines" className="card">
-            <h3>Secure SDLC Pipelines</h3>
-            <p className="subtitle">Interactive blueprints of security processes. Select a pipeline to begin.</p>
+        <section id="cybersecurity-workflows" className="card">
+            <h3>Cybersecurity Workflows</h3>
+            <p className="subtitle">These are interactive blueprints of key security processes I have experience architecting and implementing. Select a workflow to explore the stages and tools involved.</p>
             <div className="workflow-tabs" role="tablist">
                 {workflowNames.map((name, index) => (
                     <button
@@ -401,7 +401,7 @@ const ThemeSwitcher = ({ theme, toggleTheme }) => (
 
 
 const App = () => {
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -422,7 +422,7 @@ const App = () => {
                 <nav>
                   <a href="#hero">Home</a>
                   <a href="#architect-profile">Profile</a>
-                  <a href="#sdlc-pipelines">Pipelines</a>
+                  <a href="#cybersecurity-workflows">Workflows</a>
                   <a href="#secure-channel">Contact</a>
                 </nav>
                 <ThemeSwitcher theme={theme} toggleTheme={toggleTheme} />
@@ -445,7 +445,7 @@ const App = () => {
 
         <ArchitectProfile />
         
-        <SecureSdlcPipelines />
+        <CybersecurityWorkflows />
 
         <section id="secure-channel" className="card">
           <h3>Establish Secure Channel</h3>

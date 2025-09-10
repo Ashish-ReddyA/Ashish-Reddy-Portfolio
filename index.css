@@ -1,0 +1,439 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Exo+2:wght@400;600;700&display=swap');
+
+:root {
+  --bg-primary: #0A0F1E;
+  --bg-secondary: rgba(16, 22, 43, 0.7);
+  --bg-tertiary: #10162B;
+  --border-faint: rgba(0, 255, 255, 0.2);
+  --accent-primary: #00FFFF;
+  --accent-primary-glow: rgba(0, 255, 255, 0.7);
+  --accent-primary-bg-faint: rgba(0, 255, 255, 0.15);
+  --text-primary: #E6F1FF;
+  --text-secondary: #A2B5CD;
+  --text-on-accent: #0A0F1E;
+  --card-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
+  --header-bg: rgba(10, 15, 30, 0.8);
+  --bg-gradient: linear-gradient(rgba(10, 15, 30, 0) 50%, rgba(10, 15, 30, 1) 100%),
+    radial-gradient(ellipse at center, rgba(16, 22, 43, 0.5) 0%, rgba(10, 15, 30, 1) 100%);
+}
+
+html[data-theme='light'] {
+  --bg-primary: #F4F7FC;
+  --bg-secondary: #FFFFFF;
+  --bg-tertiary: #E9ECEF;
+  --border-faint: #DEE2E6;
+  --accent-primary: #007BFF;
+  --accent-primary-glow: rgba(0, 123, 255, 0.4);
+  --accent-primary-bg-faint: rgba(0, 123, 255, 0.1);
+  --text-primary: #212529;
+  --text-secondary: #6C757D;
+  --text-on-accent: #FFFFFF;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --header-bg: rgba(255, 255, 255, 0.8);
+  --bg-gradient: none;
+}
+
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#background-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-gradient);
+  z-index: -1;
+}
+
+#background-animation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(var(--border-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-faint) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.3;
+  animation: bg-pan 60s linear infinite;
+}
+
+@keyframes bg-pan {
+  from { background-position: 0 0; }
+  to { background-position: 400px 400px; }
+}
+
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header & Nav */
+header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: var(--header-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-faint);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--accent-primary);
+  text-shadow: 0 0 5px var(--accent-primary-glow);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-left: 25px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+nav a:hover, nav a.active {
+  color: var(--accent-primary);
+  text-shadow: 0 0 3px var(--accent-primary-glow);
+}
+
+.theme-switcher {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  padding: 5px;
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+  border-radius: 50%;
+}
+
+.theme-switcher:hover {
+  color: var(--accent-primary);
+}
+
+.theme-switcher svg {
+  width: 20px;
+  height: 20px;
+}
+
+
+/* General Section Styling */
+section { padding: 80px 0; }
+
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-faint);
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: var(--card-shadow);
+  position: relative;
+  backdrop-filter: blur(3px);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card::before, .card::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--accent-primary);
+  border-style: solid;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.card::before { top: -5px; left: -5px; border-width: 2px 0 0 2px; }
+.card::after { bottom: -5px; right: -5px; border-width: 0 2px 2px 0; }
+
+h1, h2, h3, h4, h5 { margin: 0; padding: 0; font-family: 'Exo 2', sans-serif; font-weight: 600; }
+
+h3 {
+  font-size: 1.8rem;
+  color: var(--accent-primary);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  text-shadow: 0 0 5px var(--accent-primary-glow);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-top: -15px;
+  margin-bottom: 25px;
+}
+
+/* Hero Section */
+#hero {
+  text-align: center;
+  padding: 80px 0;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#hero h1 { font-size: 4rem; font-weight: 700; color: var(--text-primary); }
+
+#hero h2 {
+  font-size: 1.5rem;
+  color: var(--accent-primary);
+  font-family: 'Roboto Mono', monospace;
+  margin-bottom: 20px;
+  text-shadow: 0 0 8px var(--accent-primary-glow);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.specializations {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.specializations span {
+  background-color: transparent;
+  color: var(--accent-primary);
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-faint);
+  transition: all 0.3s ease;
+}
+
+.specializations span:hover {
+    background-color: var(--accent-primary-bg-faint);
+    box-shadow: 0 0 10px var(--accent-primary-glow);
+}
+
+/* Architect Profile */
+.profile-container { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; }
+.profile-about h4 { color: var(--accent-primary); font-size: 1.5rem; margin-bottom: 10px; }
+.profile-details {
+  background-color: var(--bg-primary);
+  border-radius: 6px;
+  border: 1px solid var(--border-faint);
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dossier-tabs { display: flex; border-bottom: 1px solid var(--border-faint); background-color: var(--bg-tertiary); }
+.dossier-tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border-right: 1px solid var(--border-faint);
+}
+.dossier-tab:hover { color: var(--accent-primary); }
+.dossier-tab.active {
+  color: var(--accent-primary);
+  font-weight: bold;
+  background-color: var(--bg-secondary);
+  box-shadow: inset 0 -3px 0 0 var(--accent-primary);
+}
+.dossier-content { padding: 20px; animation: contentFadeIn 0.5s ease-out; }
+
+@keyframes contentFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.job, .project { margin-bottom: 20px; border-left: 2px solid var(--accent-primary); padding-left: 15px; }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+.skill-category h5 { color: var(--text-primary); margin-bottom: 10px; }
+.skill-category ul { list-style-type: none; padding-left: 0; margin: 0; }
+.skill-category li { margin-bottom: 5px; color: var(--text-secondary); font-size: 0.9rem; position: relative; padding-left: 20px; }
+.skill-category li::before { content: '>'; position: absolute; left: 0; color: var(--accent-primary); font-family: 'Roboto Mono', monospace; }
+
+/* SDLC Pipelines */
+.workflow-tabs { display: flex; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 10px; }
+.workflow-tab {
+  padding: 8px 16px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--border-faint);
+  color: var(--text-secondary);
+  border-radius: 4px;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+.workflow-tab:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
+.workflow-tab.active {
+  background-color: var(--accent-primary);
+  color: var(--text-on-accent);
+  font-weight: bold;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 10px var(--accent-primary-glow);
+}
+.pipeline-container { display: flex; justify-content: center; align-items: center; margin-top: 2rem; flex-wrap: wrap; gap: 0 15px; }
+.pipeline-node {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-faint);
+  transition: all 0.5s ease;
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-align: center;
+  position: relative;
+  width: 120px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+.pipeline-node:hover {
+  transform: scale(1.05);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+.pipeline-node.selected {
+  transform: scale(1.05);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  box-shadow: 0 0 15px var(--accent-primary-glow);
+}
+.pipeline-node.active {
+  background: var(--accent-primary);
+  color: var(--text-on-accent);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 15px var(--accent-primary-glow);
+  font-weight: 600;
+}
+.pipeline-arrow {
+    width: 30px;
+    height: 2px;
+    background: var(--border-faint);
+    position: relative;
+    transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+.pipeline-arrow::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: -4px;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid var(--border-faint);
+    border-right: 2px solid var(--border-faint);
+    transform: rotate(45deg);
+    transition: border-color 0.5s ease;
+}
+.pipeline-arrow.active { 
+    background: var(--accent-primary);
+    box-shadow: 0 0 8px var(--accent-primary-glow);
+}
+.pipeline-arrow.active::after { border-color: var(--accent-primary); }
+
+/* When a user selects a node, only that node should glow */
+.pipeline-container.selection-active .pipeline-node.active,
+.pipeline-container.selection-active .pipeline-arrow.active {
+    box-shadow: none;
+}
+.pipeline-container.selection-active .pipeline-node.selected {
+    box-shadow: 0 0 15px var(--accent-primary-glow);
+}
+
+.pipeline-info-panel {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-faint);
+  border-radius: 5px;
+  margin-top: 30px;
+  padding: 0 20px;
+  text-align: left;
+}
+.pipeline-info-panel.visible {
+  max-height: 500px;
+  opacity: 1;
+  padding: 20px;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 15px var(--accent-primary-glow);
+}
+.pipeline-info-panel h5 { margin-top: 15px; color: var(--text-primary); }
+.pipeline-info-panel ul { list-style-type: none; padding-left: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.pipeline-info-panel li {
+  background-color: var(--accent-primary-bg-faint);
+  color: var(--accent-primary);
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 0.9rem;
+}
+
+/* Contact Section */
+#secure-channel a { color: var(--accent-primary); text-decoration: none; font-weight: 500; transition: all 0.3s; }
+#secure-channel a:hover { text-shadow: 0 0 5px var(--accent-primary-glow); }
+
+/* Footer */
+footer { text-align: center; padding: 40px 0 20px 0; color: var(--text-secondary); font-size: 0.9rem; }
+
+/* Keyboard navigation focus styles */
+.workflow-tab:focus-visible,
+.pipeline-node:focus-visible,
+.dossier-tab:focus-visible,
+.theme-switcher:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 8px var(--accent-primary-glow);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #hero h1 { font-size: 2.5rem; }
+  #hero h2 { font-size: 1.1rem; }
+  .profile-container { grid-template-columns: 1fr; }
+  .pipeline-container { flex-direction: column; gap: 10px 0; }
+  .pipeline-arrow { transform: rotate(90deg); margin: 5px 0; }
+  nav a { margin-left: 15px; }
+}
